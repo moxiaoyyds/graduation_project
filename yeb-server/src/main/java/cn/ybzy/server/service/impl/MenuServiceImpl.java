@@ -3,6 +3,7 @@ package cn.ybzy.server.service.impl;
 import cn.ybzy.server.pojo.Admin;
 import cn.ybzy.server.pojo.Menu;
 import cn.ybzy.server.mapper.MenuMapper;
+import cn.ybzy.server.pojo.Role;
 import cn.ybzy.server.service.IMenuService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -57,5 +58,14 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements IM
     @Override
     public List<Menu> getMenusWithRole() {
         return menuMapper.getMenusWithRole();
+    }
+
+    /**
+     * 查询所有菜单
+     * @return
+     */
+    @Override
+    public List<Menu> getAllMenus() {
+        return menuMapper.getAllMenus();
     }
 }

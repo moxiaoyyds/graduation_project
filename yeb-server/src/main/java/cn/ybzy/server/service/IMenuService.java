@@ -1,6 +1,7 @@
 package cn.ybzy.server.service;
 
 import cn.ybzy.server.pojo.Menu;
+import cn.ybzy.server.pojo.Role;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 import java.util.List;
@@ -26,4 +27,10 @@ public interface IMenuService extends IService<Menu> {
      * @return
      */
     List<Menu> getMenusWithRole();
+
+    /**
+     * 查询所有菜单
+     * @return
+     */
+    List<Menu> getAllMenus();
 }

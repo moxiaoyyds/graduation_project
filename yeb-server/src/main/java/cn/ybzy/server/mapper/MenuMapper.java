@@ -1,6 +1,7 @@
 package cn.ybzy.server.mapper;
 
 import cn.ybzy.server.pojo.Menu;
+import cn.ybzy.server.pojo.Role;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
 import java.util.List;
@@ -27,4 +28,10 @@ public interface MenuMapper extends BaseMapper<Menu> {
      * @return
      */
     List<Menu> getMenusWithRole();
+
+    /**
+     * 查询所有菜单
+     * @return
+     */
+    List<Menu> getAllMenus();
 }
