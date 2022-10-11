@@ -60,7 +60,7 @@ public class CodeGenerator {
         //3.包配置
         PackageConfig packageConfig = new PackageConfig();
         packageConfig.setModuleName(scanner("模块名"));
-        packageConfig.setParent("com.example.springbootproject")
+        packageConfig.setParent("com.example.server")
                 .setController("controller")
                 .setService("service")
                 .setServiceImpl("serviceImpl")
