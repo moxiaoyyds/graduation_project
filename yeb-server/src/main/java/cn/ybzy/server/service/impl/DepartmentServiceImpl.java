@@ -48,6 +48,21 @@ public class DepartmentServiceImpl extends ServiceImpl<DepartmentMapper, Departm
         return RespBean.error("添加失败！");
     }
 
+
+    /**
+     * 添加部门---->mybatis-plus写法
+     * @param dep
+     * @return
+     */
+    public RespBean addDepTest(Department dep) {
+        dep.setEnabled(true);
+        baseMapper.insert(dep);
+        if (1 == dep.getResult()) {
+            return RespBean.success("添加成功！", dep);
+        }
+        return RespBean.error("添加失败！");
+    }
+
     /**
      * 删除部门
      * @param id
