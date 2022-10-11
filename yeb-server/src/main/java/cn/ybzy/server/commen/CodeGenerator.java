@@ -41,7 +41,7 @@ public class CodeGenerator {
         //1.全局配置
         GlobalConfig globalConfig = new GlobalConfig();
         globalConfig.setOutputDir("src/main/java");
-        globalConfig.setAuthor("HM");
+        globalConfig.setAuthor("user");
         globalConfig.setOpen(false);
         globalConfig.setFileOverride(true);//是否覆盖
         globalConfig.setServiceName("%sService");//去除service的i前缀
