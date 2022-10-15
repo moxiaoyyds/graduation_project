@@ -1,15 +1,13 @@
 package cn.ybzy.server.service.impl;
 
-import cn.ybzy.server.pojo.Admin;
+import cn.ybzy.server.service.util.AdminUtils;
 import cn.ybzy.server.pojo.Menu;
 import cn.ybzy.server.mapper.MenuMapper;
-import cn.ybzy.server.pojo.Role;
 import cn.ybzy.server.service.IMenuService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.ValueOperations;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
@@ -37,8 +35,7 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements IM
      */
     @Override
     public List<Menu> getMenusByAdminId() {
-        Integer adminId = ((Admin) SecurityContextHolder.getContext().
-                getAuthentication().getPrincipal()).getId();
+        Integer adminId = AdminUtils.getCurrentAdmin().getId();
         ValueOperations<String, Object> valueOperations = redisTemplate.opsForValue();
         // 从redis获取菜单数据
         List<Menu> menus = (List<Menu>) valueOperations.get("menu_" + adminId);
