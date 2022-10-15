@@ -3,7 +3,9 @@ package cn.ybzy.server.controller;
 
 import cn.ybzy.server.pojo.Admin;
 import cn.ybzy.server.pojo.RespBean;
+import cn.ybzy.server.pojo.Role;
 import cn.ybzy.server.service.IAdminService;
+import cn.ybzy.server.service.IRoleService;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.models.auth.In;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +27,8 @@ public class AdminController {
 
     @Autowired
     private IAdminService adminService;
+    @Autowired
+    private IRoleService roleService;
 
     @ApiOperation(value = "获取所有操作员")
     @GetMapping(("/"))
@@ -48,5 +52,17 @@ public class AdminController {
             return RespBean.error("删除成功");
         }
         return RespBean.error("删除失败！");
+    }
+
+    @ApiOperation(value = "获取所有角色")
+    @GetMapping("/roles")
+    public List<Role> getAllRoles() {
+        return roleService.list();
+    }
+
+    @ApiOperation(value = "更新操作员角色")
+    @PutMapping("/role")
+    public RespBean updateAdminRole(Integer adminId, Integer[] rids) {
+        return adminService.updateAdminRole(adminId, rids);
     }
 }
