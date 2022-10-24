@@ -3,6 +3,7 @@ package cn.ybzy.server.mapper;
 import cn.ybzy.server.pojo.Menu;
 import cn.ybzy.server.pojo.Role;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
@@ -14,6 +15,7 @@ import java.util.List;
  * @author 王浩
  * @since 2022-08-20
  */
+@Repository
 public interface MenuMapper extends BaseMapper<Menu> {
 
     /**

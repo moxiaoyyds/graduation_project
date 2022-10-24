@@ -13,7 +13,7 @@ import org.springframework.data.redis.serializer.StringRedisSerializer;
  * @createTime 2022-09-12 11:29
  **/
 
-@Configuration
+//@Configuration
 public class RedisConfig {
 
     @Bean
