@@ -58,10 +58,10 @@ spring:
     host: 192.168.159.128
     # 端口
     port: 5672
-    listener:
-      simple:
-        #开启手动确认
-        acknowledge-mode: manual
+    #消息确认回调
+    publisher-confirm-type: correlated
+    #消息失败回调
+    publisher-returns: true
 
 # Mybatis-plus配置
 mybatis-plus:
