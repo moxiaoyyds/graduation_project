@@ -35,6 +35,7 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements IM
      */
     @Override
     public List<Menu> getMenusByAdminId() {
+/*      redis 写法
         Integer adminId = AdminUtils.getCurrentAdmin().getId();
         ValueOperations<String, Object> valueOperations = redisTemplate.opsForValue();
         // 从redis获取菜单数据
@@ -45,7 +46,10 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements IM
             // 将数据设置到redis中
             valueOperations.set("menu_" + adminId, menus);
         }
-        return menus;
+        return menus;*/
+
+        Integer adminId = AdminUtils.getCurrentAdmin().getId();
+        return menuMapper.getMenusByAdminId(adminId);
     }
 
     /**
