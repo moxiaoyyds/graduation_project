@@ -132,7 +132,7 @@ notWorkDate, beginContract, endContract, workAge, salaryId
             AND e.posId = #{employee.posId}
         </if>
         <if test="null!=employee.engageForm and ''!=employee.engageForm">
-            AND e.engageForm = #{employee.engageFaorm}
+            AND e.engageForm = #{employee.engageForm}
         </if>
         <if test="null!=employee.departmentId">
             AND e.departmentId = #{employee.departmentId}
