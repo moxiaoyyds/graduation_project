@@ -118,7 +118,9 @@ public class EmployeeController {
     @ApiOperation(value = "导出员工数据")
     @GetMapping(value = "/export", produces = "application/octet-stream")
     public void exportEmployee(HttpServletResponse response) {
+        // 获取所有员工对象，存入集合
         List<Employee> list = employeeService.getEmployee(null);
+        // 创建导出参数 第一个参数为Excel文件名，第二参数为sheet名，第三个参数为Excel版本
         ExportParams params = new ExportParams("员工表", "员工表", ExcelType.HSSF);
         Workbook workbook = ExcelExportUtil.exportExcel(params, Employee.class, list);
         ServletOutputStream out = null;
@@ -150,11 +152,15 @@ public class EmployeeController {
         ImportParams params = new ImportParams();
         // 去掉标题行
         params.setTitleRows(1);
-
+        // 获取名族列表
         List<Nation> nationList = nationService.list();
+        // 获取政治面貌列表
         List<PoliticsStatus> politicsStatusList = politicsStatusService.list();
+        // 获取部门列表
         List<Department> departmentList = departmentService.list();
+        // 获取职称列表
         List<Joblevel> joblevelList = joblevelService.list();
+        // 获取职位列表
         List<Position> positionList = positionService.list();
         try {
             List<Employee> list = ExcelImportUtil.importExcel(file.getInputStream(), Employee.class, params);

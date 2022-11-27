@@ -69,15 +69,20 @@ public class AdminServiceImpl extends ServiceImpl<AdminMapper, Admin> implements
      */
     @Override
     public RespBean login(String username, String password, String code, HttpServletRequest request) {
+        // 从请求体中获取输入的验证码
         String captcha = (String) request.getSession().getAttribute("captcha");
+        // 判断传过来的验证码是否为空，是否与真实验证码相等
         if (StringUtils.isEmpty(code) || !captcha.equalsIgnoreCase(code)) {
             return RespBean.error("验证码输入错误，请重新输入！");
         }
         // 登录
         UserDetails userDetails = userDetailsService.loadUserByUsername(username);
+        // 判断userDetails是否为空
+        // 用SpringSecurity中的密码解析器判断前端传来的密码与userDetails中的密码是否相同
         if (userDetails == null || !passwordEncoder.matches(password, userDetails.getPassword())) {
             return RespBean.error("用户名或密码不正确");
         }
+        // 判断账号是否是启用状态
         if (!userDetails.isEnabled()) {
             return RespBean.error("账号被禁用，请联系管理员！");
         }
@@ -93,6 +98,7 @@ public class AdminServiceImpl extends ServiceImpl<AdminMapper, Admin> implements
         Map<String, String> tokenMap = new HashMap<>();
         tokenMap.put("token", token);
         tokenMap.put("tokenHead", tokenHead);
+        // 返回token
         return RespBean.success("登录成功", tokenMap);
     }
 

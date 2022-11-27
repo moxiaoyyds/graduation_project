@@ -77,25 +77,38 @@ public class EmployeeServiceImpl extends ServiceImpl<EmployeeMapper, Employee> i
      */
     @Override
     public RespBean addEmp(Employee employee) {
-        // 处理合同期限，保留两位小数
+        // 获取合同开始时间
         LocalDate beginContract = employee.getBeginContract();
+        // 获取合同结束时间
         LocalDate endContract = employee.getEndContract();
+        // 计算合同一共是多少天
         long days = beginContract.until(endContract, ChronoUnit.DAYS);
+        // 处理合同期限，保留两位小数
         DecimalFormat decimalFormat = new DecimalFormat("##.00");
+        // 将合同天数转为年
         employee.setContractTerm(Double.parseDouble(decimalFormat.format(days/365.00)));
+        // 插入到数据库中并判断数据库受影响的行数，如果为1表示插入成功
         if (1 == employeeMapper.insert(employee)) {
+            // 获取完整的员工对象
             Employee emp = employeeMapper.getEmployee(employee.getId()).get(0);
             // 数据库记录发送的消息
             String msgId = UUID.randomUUID().toString();
             MailLog mailLog = new MailLog();
             mailLog.setMsgId(msgId);
             mailLog.setEid(employee.getId());
+            // 设置状态
             mailLog.setStatus(0);
+            // 设置路由键
             mailLog.setRouteKey(MailConstants.MAIL_ROUTING_KEY_NAME);
+            // 设置交换机
             mailLog.setExchange(MailConstants.MAIL_EXCHANGE_NAME);
+            // 设置重试次数
             mailLog.setCount(0);
+            // 设置重试时间 在当前时间基础上再推一分钟
             mailLog.setTryTime(LocalDateTime.now().plusMinutes(MailConstants.MSG_TIMEOUT));
+            // 设置创建时间
             mailLog.setCreateTime(LocalDateTime.now());
+            // 设置更新时间
             mailLog.setUpdateTime(LocalDateTime.now());
             mailLogMapper.insert(mailLog);
             // 发送信息
